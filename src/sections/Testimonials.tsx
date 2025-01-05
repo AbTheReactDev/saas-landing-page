@@ -1,3 +1,5 @@
+"use client";
+
 import avatar1 from "@/assets/avatar-1.png";
 import avatar2 from "@/assets/avatar-2.png";
 import avatar3 from "@/assets/avatar-3.png";
@@ -9,6 +11,8 @@ import avatar8 from "@/assets/avatar-8.png";
 import avatar9 from "@/assets/avatar-9.png";
 import clsx from "clsx";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import React from "react";
 
 interface TestimonialInterface {
   text: string;
@@ -81,36 +85,51 @@ const TestiMonialColumn = (props: {
   // testimonials?: TestimonialInterface[] ; this is the same as the line below
   testimonials: typeof testimonials;
   className?: string;
+  duration?: number;
 }) => {
   return (
-    <div
-      className={clsx(
-        "flex flex-col gap-6 py-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]",
-        props?.className
-      )}
-    >
-      {props.testimonials.map(({ text, imageSrc, name, username }, index) => (
-        <div key={index} className="card ">
-          <div className="">{text}</div>
-          <div className="flex gap-2 py-4 ">
-            <Image
-              src={imageSrc}
-              alt={name}
-              className="h-10 w-10"
-              width={40}
-              height={40}
-            />
-            <div className="flex flex-col items-start">
-              <div className="font-medium text-sm tracking-tight leading-5">
-                {name}
-              </div>
-              <div className="font-normal text-sm text-black tracking-tight">
-                {username}
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
+    <div className={props?.className}>
+      <motion.div
+        animate={{
+          translateY: "-50%",
+        }}
+        transition={{
+          duration: props?.duration || 10,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+        }}
+        className="flex flex-col gap-6"
+      >
+        {[...new Array(2)].fill(0).map((_, index) => (
+          <React.Fragment key={index}>
+            {props.testimonials.map(
+              ({ text, imageSrc, name, username }, index) => (
+                <div key={index} className="card ">
+                  <div className="">{text}</div>
+                  <div className="flex gap-2 py-4 ">
+                    <Image
+                      src={imageSrc}
+                      alt={name}
+                      className="h-10 w-10"
+                      width={40}
+                      height={40}
+                    />
+                    <div className="flex flex-col items-start">
+                      <div className="font-medium text-sm tracking-tight leading-5">
+                        {name}
+                      </div>
+                      <div className="font-normal text-sm text-black tracking-tight">
+                        {username}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </React.Fragment>
+        ))}
+      </motion.div>
     </div>
   );
 };
@@ -128,15 +147,17 @@ export const Testimonials = () => {
           From intuitive design to powerful features, our app has become an
           essential tool for users around the world.
         </p>
-        <div className="flex justify-center gap-6">
-          <TestiMonialColumn testimonials={firstColumn} className="" />
+        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[738px] overflow-hidden">
+          <TestiMonialColumn testimonials={firstColumn} duration={20} />
           <TestiMonialColumn
             testimonials={secondColumn}
-            className="hidden md:flex"
+            className="hidden md:block"
+            duration={15}
           />
           <TestiMonialColumn
             testimonials={thirdColumn}
-            className="hidden lg:flex"
+            className="hidden lg:block"
+            duration={20}
           />
         </div>
       </div>

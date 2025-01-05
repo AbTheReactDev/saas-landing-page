@@ -1,5 +1,7 @@
+"use client";
 import clsx from "clsx";
 import CheckIcon from "../assets/check.svg";
+import { motion } from "framer-motion";
 
 interface PricingTierInterface {
   title: string;
@@ -95,9 +97,20 @@ export const Pricing = () => {
                   </h3>
                   {popular && (
                     <div className="inline-flex text-sm rounded-xl border px-4 py-1.5 border-white/20">
-                      <span className="bg-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF)] font-medium text-transparent bg-clip-text">
+                      <motion.span
+                        animate={{
+                          backgroundPositionX: "-100%",
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1,
+                          repeatType: "loop",
+                          ease: "linear",
+                        }}
+                        className="bg-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF)] [background-size:200%] font-black text-transparent bg-clip-text"
+                      >
                         Popular
-                      </span>
+                      </motion.span>
                     </div>
                   )}
                 </div>

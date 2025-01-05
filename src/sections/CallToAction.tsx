@@ -1,16 +1,32 @@
-import Image from "next/image";
+"use client";
 import ArrowIcon from "../assets/arrow-right.svg";
 import StarImage from "../assets/star.png";
 import SpringImage from "../assets/spring.png";
+import { useRef } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
 
 export const CallToAction = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+
   return (
-    <section className="bg-gradient-to-b from-[#FFFFFF] to-[#D2DCFF] py-24 relative overflow-x-clip">
-      <Image
-        src={StarImage}
+    <section
+      ref={sectionRef}
+      className="bg-gradient-to-b from-[#FFFFFF] to-[#D2DCFF] py-24 relative overflow-x-clip"
+    >
+      <motion.img
+        src={StarImage.src}
         alt="Star image"
         width={360}
         height={360}
+        style={{
+          translateY,
+        }}
         className="absolute top-0 lg:left-0 md:-left-[220px] md:block hidden"
       />
       <div className="container">
@@ -27,11 +43,14 @@ export const CallToAction = () => {
           </button>
         </div>
       </div>
-      <Image
-        src={SpringImage}
+      <motion.img
+        src={SpringImage.src}
         alt="Spring image"
         width={360}
         height={360}
+        style={{
+          translateY,
+        }}
         className="absolute bottom-0 lg:right-0 md:-right-[220px]  hidden md:block"
       />
     </section>

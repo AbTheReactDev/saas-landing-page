@@ -37,8 +37,8 @@ export const Footer = () => {
   return (
     <footer className="py-10 bg-black text-white/60">
       <div className="container">
-        <div className="flex flex-col text-center justify-center items-center ">
-          <div className="inline-flex relative before:content-[''] before:w-full before:bg-[linear-gradient(to_right,#F87BFF,#FB92CF,#FFDD9B,#C2F0B1,#2FD8FE)] before:absolute before:blur before:top-2 before:-bottom-0 ">
+        <div className="flex flex-col text-center justify-center items-center">
+          <div className="inline-flex relative before:content-[''] before:absolute before:blur before:top-2 before:-bottom-0 before:w-full before:bg-[linear-gradient(to_right,#F87BFF,#FB92CF,#FFDD9B,#C2F0B1,#2FD8FE)]">
             <Image
               src={Logo}
               alt="Logo"
@@ -49,7 +49,7 @@ export const Footer = () => {
           </div>
           <nav className="flex flex-col gap-3 md:flex-row py-5">
             {FooterLinks?.map((link, index) => (
-              <a className="text-sm" href="#">
+              <a key={index} className="text-sm" href="#">
                 {link.title}
               </a>
             ))}
